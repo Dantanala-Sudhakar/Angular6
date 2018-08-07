@@ -1,0 +1,53 @@
+<div class="container">
+	<h1>
+		Create your account
+	</h1>
+	<div *ngIf="statusMsg" class="alert alert-danger">
+		{{statusMsg}}
+	</div>
+	<form #signupForm="ngForm" (ngSubmit)="onSignup(signupForm.value);" novalidate="">
+		<div class="form-group">
+			<label>User Name</label>
+			<input #nameRef="ngModel" maxlength="10" minlength="3" class="form-control" placeholder="User name" type="text" name="userName" required ngModel>
+			<div *ngIf="nameRef.errors && (nameRef.dirty || nameRef.touched)" class="alert alert-danger">
+				<div [hidden]="!nameRef.errors.required">
+					Please enter a name
+				</div>
+				<div [hidden]="!nameRef.errors.minlength">
+					Plese enter atleaset 3 characters
+				</div>
+				<div [hidden]="!nameRef.errors.maxlength">
+					Please do not exceed maximum of 10 characters
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label>Email</label>
+			<input class="form-control" placeholder="Email" type="text" name="email" ngModel>
+		</div>
+		<div class="form-group">
+			<label>Password</label>
+			<input minlength="8" maxlength="16" #passwordRef class="form-control" placeholder="Password" type="password" name="password" required ngModel>
+			<div *ngIf="passwordRef.errors && 
+			(nameRef.dirty || nameRef.touched)">
+				<div [hidden]="!passwordRef.errors.required">
+					Please enter password
+				</div>
+				<div [hidden]="!passwordRef.errors.minlength">
+					Plese enter atleaset 8 characters
+				</div>
+				<div [hidden]="!passwordRef.errors.maxlength">
+					Please do not exceed maximum of 16 characters
+				</div>
+			</div>
+		</div>
+		<!-- <div class="form-group">
+			<label>Confirm Password</label>
+			<input class="form-control" type="text" name="confirmPassword" required ngModel>
+		</div> -->
+		<button [disabled]="!signupForm.form.valid" type="submit" class="btn btn-primary">CREATE ACCOUNT</button>
+	</form>
+	<div style="margin-top:15px;">
+		Already have an account with us? <a routerLink="/login">Login</a> in instead.
+	</div>
+</div>

@@ -1,0 +1,22 @@
+<div class="container">
+	<h1>
+		Log In
+	</h1>
+	<div *ngIf="statusMessage" class="alert alert-danger">
+		{{statusMessage}}
+	</div>
+	<form #loginForm="ngForm" (ngSubmit)="onLogin(loginForm.value)" novalidate="">
+		<div class="form-group">
+			<label>User Name</label>
+			<input class="form-control" type="text" name="userName" required ngModel>
+		</div>
+		<div class="form-group">
+			<label>Password</label>
+			<input class="form-control" type="password" name="password" required ngModel>
+		</div>
+		<button [disabled]="!loginForm.form.valid" type="submit" class="btn btn-primary">LOG IN</button>
+	</form>
+	<div style="margin-top:15px;">
+		Don't have an mLab account yet? <a routerLink="/signup">Sign up</a> now!
+	</div>
+</div>

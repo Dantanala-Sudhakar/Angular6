@@ -1,0 +1,7 @@
+<ul class="nav nav-pills nav-stacked">
+	<li class="videoListLi" *ngFor="let video of videos" 
+	style="background-color: rgba(211, 211, 211, .47);">
+		<a (click)="onSelectVideo(video)" style="width: 90%;display: inline-block;">{{video.title}}  </a>
+		<div (click)="onDeleteVideo(video)" class="glyphicon glyphicon-remove pull-right" style="cursor: pointer;width: 10%;padding: 12px;background-color: lightgrey; display: inline-block;"></div>
+	</li>
+</ul>
