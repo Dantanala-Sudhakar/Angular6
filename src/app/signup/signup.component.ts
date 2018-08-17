@@ -10,6 +10,13 @@ import {NgForm} from '@angular/forms';
 })
 export class SignupComponent implements OnInit {
 	@ViewChild('signupForm') public signupForm : NgForm;
+  user:User={
+    _id:null,
+    email:null,
+    password:null,
+    confirmPassword:null,
+    userName:null
+  };
 	public statusMsg:string;
   constructor(private _userService: UserService) { }
 

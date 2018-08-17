@@ -1,0 +1,22 @@
+<!-- <h1 *ngIf="dataFromChild">
+	{{dataFromChild?.name + ' ' + dataFromChild?.gender}}
+</h1> -->
+<!-- <h1 #h1Variable></h1> -->
+<div class="form-group">
+	<label class="control-label">
+		Search an employee:
+	</label>
+	<input type="text" class="form-control" name="" [(ngModel)]="searchTerm">
+</div>
+<div *ngFor="let employee of filteredEmployees">
+	<!-- <div (click)="h1Variable.innerHTML = childComponent.getEmployeeNameAndGender()"> -->
+	<app-display-employee [employee]="employee" #childComponent
+	 (notify)="handleNotify($event)" [searchTerm]="searchTerm"
+	 (deleteEmployeeNotify)="deleteEmployee($event)"></app-display-employee>
+</div>
+ <!-- <button (click)="nextEmployee()" class="btn btn-primary">
+	View Next Employee
+</button>
+<br/>
+<br/>
+<app-display-employee [employee]="employeeToDisplay"></app-display-employee> -->

@@ -13,6 +13,12 @@
       <li *ngIf="userName">
         <a routerLink="/videos" routerLinkActive="active">PlayList</a>
       </li>
+      <li>
+        <a routerLink="/employees">Employees</a>
+      </li>
+      <li>
+        <a routerLink="/edit/0">Add Employee</a>
+      </li>
     </ul>
     <div *ngIf="userName; else elseBlock">
       <ul class="nav navbar-nav navbar-right">
@@ -31,10 +37,10 @@
       <li><a routerLink="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
     </ul>
     </ng-template>
-
-    
   </div>  
 </nav>
+<!-- <div *ngIf="showLoadingIndicator" class="spinner"></div> -->
+<div class="lds-roller" *ngIf="showLoadingIndicator"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
 <div class="container-fluid">
   <router-outlet></router-outlet>
 </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from './user.service';
-import {Router} from '@angular/router';
+import {Event, Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError} from '@angular/router';
 import {LocalStorageService} from 'ngx-webstorage';
 @Component({
   selector: 'app-root',
@@ -10,9 +10,20 @@ import {LocalStorageService} from 'ngx-webstorage';
 export class AppComponent implements OnInit{
 	public userName;
 	closeResult;
+	showLoadingIndicator = true;
 	constructor(private userService:UserService, private router:Router,
-		private locaSt:LocalStorageService){
-
+		private locaSt:LocalStorageService,
+		private _router:Router){
+		this._router.events.subscribe((routerEvent:Event) =>{
+			if(routerEvent instanceof NavigationStart){
+				this.showLoadingIndicator = true;
+			}
+			if(routerEvent instanceof NavigationEnd ||
+				routerEvent instanceof NavigationError ||
+				routerEvent instanceof NavigationCancel){
+				this.showLoadingIndicator = false;
+			}
+		})
 	}
 	ngOnInit(){
 		this.userService.getLoggedInName.subscribe(name => {

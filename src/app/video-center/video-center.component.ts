@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Directive, ɵrenderComponent } from '@angular/core';
 import {Video} from './../video';
 import {VideoService} from './../video.service';
+import 'rxjs/add/operator/retry';
+import 'rxjs/add/operator/retryWhen';
+import 'rxjs/add/operator/scan';
+import 'rxjs/add/operator/delay';
 
 @Component({
 	selector:'video-center',
@@ -12,10 +16,22 @@ export class VideoCenterComponent implements OnInit {
 
 	  videos: Array<Video>;
 	  public hiddenNewVideo:boolean = true;
+	  statusMessage:string;
 	  constructor(private _videoService: VideoService) { }
 
 	  ngOnInit() {
-	  	this._videoService.getVideos()
+	  	this._videoService.getVideos().retryWhen((err)=>{
+	  		return err.scan((retryCount)=>{
+	  			retryCount +=1;
+	  			if(retryCount < 6){
+	  				this.statusMessage = `Retrying.. Attempt no. ${retryCount}`
+	  				return retryCount;
+	  			} else {
+	  				throw(err);
+	  				
+	  			}
+	  		}, 0).delay(1000);
+	  	})
 	  	.subscribe(resVideoData => this.videos = resVideoData);
 	  }
 	  selectedVideo:Video;

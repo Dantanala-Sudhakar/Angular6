@@ -1,0 +1,11 @@
+.vertical-align{
+	display: flex;
+    align-items: center;
+}
+button.btn{
+	width: 70px;
+	margin-right: 5px;
+}
+.pointer{
+	cursor: pointer;
+}
